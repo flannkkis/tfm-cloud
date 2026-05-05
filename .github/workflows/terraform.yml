@@ -41,7 +41,7 @@ jobs:
 
       - name: Terraform Plan
         working-directory: terraform/environments/dev
-        run: terraform plan
+        run: terraform plan -var-file="terraform.tfvars"
         env:
           TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
           TF_VAR_admin_ip: ${{ secrets.ADMIN_IP }}
@@ -50,7 +50,7 @@ jobs:
       - name: Terraform Apply (solo en push a main)
         if: github.event_name == 'push'
         working-directory: terraform/environments/dev
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var-file="terraform.tfvars"
         env:
           TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
           TF_VAR_admin_ip: ${{ secrets.ADMIN_IP }}
